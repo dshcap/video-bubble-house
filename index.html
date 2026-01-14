@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Video Bubble</title>
+  <title>Video Bubble 4:3</title>
 
   <style>
     :root{
@@ -11,7 +11,7 @@
       --radius:56px;
     }
 
-    /* НИКАКИХ ФОНОВ, НИКАКОГО СКРОЛЛА */
+    /* никаких фонов и скроллов */
     html, body{
       margin:0;
       padding:0;
@@ -22,25 +22,34 @@
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
     }
 
-    /* контейнер ровно под iframe */
+    /* контейнер iframe */
     .wrap{
-      position:relative;
-      width:100vw;
-      height:100vh;
+      width:100%;
+      height:100%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
       overflow:hidden;
-      background: transparent;
     }
 
-    /* видео — единственная "карточка" */
+    /* ВИДЕО 4:3 */
+    .video-box{
+      position:relative;
+      width:100%;
+      max-width:100%;
+      aspect-ratio: 4 / 3;   /* 👈 ГЛАВНОЕ */
+      overflow:hidden;
+      border-radius: var(--radius);
+    }
+
     video{
       width:100%;
       height:100%;
       object-fit:cover;
       display:block;
-      border-radius: var(--radius);
     }
 
-    /* таблички */
+    /* бейджи */
     .badge{
       position:absolute;
       z-index:2;
@@ -60,19 +69,17 @@
       top:18px;
       left:18px;
       background: linear-gradient(135deg, #ffffff 0%, #cffff0 100%);
-      animation: floatA 2.4s ease-in-out infinite;
+      animation: floatA 2s ease-in-out infinite;
     }
     .badge-360 .big{
       font-size:40px;
       line-height:1;
       font-weight:800;
       color: var(--accent);
-      letter-spacing:-0.02em;
     }
     .badge-360 .small{
       margin-top:6px;
       font-size:13.5px;
-      line-height:1.2;
       color:#0b2a22;
       opacity:.9;
     }
@@ -82,65 +89,58 @@
       right:18px;
       bottom:18px;
       background: var(--accent);
-      animation: floatB 2.1s ease-in-out infinite;
+      animation: floatB 1.9s ease-in-out infinite;
     }
     .badge-247 .big{
       font-size:40px;
       line-height:1;
       font-weight:800;
       color:#ffffff;
-      letter-spacing:-0.02em;
     }
     .badge-247 .small{
       margin-top:6px;
       font-size:13.5px;
-      line-height:1.2;
       color:#eafff8;
     }
 
-    /* БОЛЕЕ АКТИВНОЕ ДВИЖЕНИЕ */
+    /* активное движение */
     @keyframes floatA{
       0%   { transform: translateY(0); }
-      25%  { transform: translateY(-18px); }
-      50%  { transform: translateY(0); }
-      75%  { transform: translateY(14px); }
+      50%  { transform: translateY(-22px); }
       100% { transform: translateY(0); }
     }
-
     @keyframes floatB{
       0%   { transform: translateY(0); }
-      25%  { transform: translateY(16px); }
-      50%  { transform: translateY(0); }
-      75%  { transform: translateY(-20px); }
+      50%  { transform: translateY(24px); }
       100% { transform: translateY(0); }
     }
 
     @media (max-width:520px){
-      :root{ --radius:34px; }
-      .badge{ padding:14px 16px; border-radius:18px; gap:10px; }
+      :root{ --radius:32px; }
+      .badge{ padding:14px 16px; border-radius:18px; }
       .badge-360 .big, .badge-247 .big{ font-size:32px; }
       .badge-360 .small, .badge-247 .small{ font-size:12.5px; }
-      .badge-360{ top:14px; left:14px; }
-      .badge-247{ right:14px; bottom:14px; }
     }
   </style>
 </head>
 
 <body>
   <div class="wrap">
-    <video autoplay muted loop playsinline preload="auto">
-      <source src="./herobubble.mp4" type="video/mp4" />
-    </video>
+    <div class="video-box">
+      <video autoplay muted loop playsinline preload="auto">
+        <source src="./herobubble.mp4" type="video/mp4" />
+      </video>
 
-    <div class="badge badge-360">
-      <div class="big">360°</div>
-      <div class="small">Widok panoramiczny</div>
-    </div>
+      <div class="badge badge-360">
+        <div class="big">360°</div>
+        <div class="small">Widok panoramiczny</div>
+      </div>
 
-    <div class="badge badge-247">
-      <div>
-        <div class="big">24/7</div>
-        <div class="small">Wsparcie</div>
+      <div class="badge badge-247">
+        <div>
+          <div class="big">24/7</div>
+          <div class="small">Wsparcie</div>
+        </div>
       </div>
     </div>
   </div>
